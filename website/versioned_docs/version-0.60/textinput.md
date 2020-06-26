@@ -508,7 +508,7 @@ Callback that is called when the text input selection is changed. This will be c
 
 ### `onSubmitEditing`
 
-Callback that is called when the text input's submit button is pressed with the argument `{nativeEvent: {text, eventCount, target}}`. Invalid if `multiline={true}` is specified.
+Callback that is called when the text input's submit button is pressed with the argument `{nativeEvent: {text, eventCount, target}}`.
 
 | Type     | Required |
 | -------- | -------- |
@@ -643,8 +643,6 @@ Some functionality that can be performed with this instance is:
 - `blur()`
 - `focus()`
 - `update()`
-
-> You can reference `DocumentSelectionState` in [`vendor/document/selection/DocumentSelectionState.js`](https://github.com/facebook/react-native/blob/master/Libraries/vendor/document/selection/DocumentSelectionState.js)
 
 | Type                   | Required | Platform |
 | ---------------------- | -------- | -------- |

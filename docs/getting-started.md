@@ -1,9 +1,9 @@
 ---
-id: getting-started
-title: Getting Started
+id: environment-setup
+title: Setting up the development environment
 ---
 
-This page will help you install and build your first React Native app. If you already have React Native installed, you can skip ahead to the [Tutorial](tutorial.md).
+This page will help you install and build your first React Native app.
 
 <strong>If you are new to mobile development</strong>, the easiest way to get started is with Expo CLI. Expo is a set of tools built around React Native and, while it has many [features](https://expo.io/features), the most relevant feature for us right now is that it can get you writing a React Native app within minutes. You will only need a recent version of Node.js and a phone or emulator. If you'd like to try out React Native directly in your web browser before installing any tools, you can try out [Snack](https://snack.expo.io/).
 
@@ -22,7 +22,7 @@ This page will help you install and build your first React Native app. If you al
 
 <block class="quickstart mac windows linux ios android" />
 
-Assuming that you have [Node 10 LTS](https://nodejs.org/en/download/) or greater installed, you can use npm to install the Expo CLI command line utility:
+Assuming that you have [Node 12 LTS](https://nodejs.org/en/download/) or greater installed, you can use npm to install the Expo CLI command line utility:
 
 ```sh
 npm install -g expo-cli
@@ -41,7 +41,7 @@ This will start a development server for you.
 
 <h2>Running your React Native application</h2>
 
-Install the [Expo](https://expo.io) client app on your iOS or Android phone and connect to the same wireless network as your computer. On Android, use the Expo app to scan the QR code from your terminal to open your project. On iOS, follow on-screen instructions to get a link.
+Install the [Expo](https://expo.io) client app on your iOS or Android phone and connect to the same wireless network as your computer. On Android, use the Expo app to scan the QR code from your terminal to open your project. On iOS, use the built-in QR code scanner of the Camera app.
 
 <h3>Modifying your app</h3>
 
@@ -51,7 +51,7 @@ Now that you have successfully run the app, let's modify it. Open `App.js` in yo
 
 Congratulations! You've successfully run and modified your first React Native app.
 
-<center><img src="/react-native/docs/assets/GettingStartedCongratulations.png" width="150"></img></center>
+<center><img src="/docs/assets/GettingStartedCongratulations.png" width="150"></img></center>
 
 <h2>Now what?</h3>
 
@@ -64,7 +64,7 @@ If you have a problem with Expo, before creating a new issue, please see if ther
 - in the [Expo CLI issues](https://github.com/expo/expo-cli/issues) (for issues related to Expo CLI), or
 - in the [Expo issues](https://github.com/expo/expo/issues) (for issues about the Expo client or SDK).
 
-If you're curious to learn more about React Native, continue on to the [Tutorial](tutorial.md).
+If you're curious to learn more about React Native, check out the [Introduction to React Native](getting-started).
 
 <h3>Running your app on a simulator or virtual device</h3>
 
@@ -84,9 +84,9 @@ If you're integrating React Native into an existing project, you'll want to skip
 
 <block class="native mac windows linux ios android" />
 
-<p>Follow these instructions if you need to build native code in your project. For example, if you are integrating React Native into an existing application, or if you "ejected" from <a href="getting-started" onclick="displayTab('guide', 'quickstart')">Expo</a>, you'll need this section.</p>
+<p>Follow these instructions if you need to build native code in your project. For example, if you are integrating React Native into an existing application, or if you "ejected" from <a href="environment-setup" onclick="displayTab('guide', 'quickstart')">Expo</a>, you'll need this section.</p>
 
-The instructions are a bit different depending on your development operating system, and whether you want to start developing for iOS or Android. If you want to develop for both iOS and Android, that's fine - you can pick one to start with, since the setup is a bit different.
+The instructions are a bit different depending on your development operating system, and whether you want to start developing for iOS or Android. If you want to develop for both Android and iOS, that's fine - you can pick one to start with, since the setup is a bit different.
 
 <div class="toggler">
   <span>Development OS:</span>
@@ -109,7 +109,7 @@ The instructions are a bit different depending on your development operating sys
 
 <h2>Unsupported</h2>
 
-<blockquote><p>A Mac is required to build projects with native code for iOS. You can follow the <a href="getting-started" onclick="displayTab('guide', 'quickstart')">Quick Start</a> to learn how to build your app using Expo instead.</p></blockquote>
+<blockquote><p>A Mac is required to build projects with native code for iOS. You can follow the <a href="environment-setup" onclick="displayTab('guide', 'quickstart')">Quick Start</a> to learn how to build your app using Expo instead.</p></blockquote>
 
 <block class="native mac ios" />
 
@@ -163,8 +163,7 @@ If you have already installed Node on your system, make sure it is Node 8.3 or n
 We recommend installing JDK using [Homebrew](http://brew.sh/). Run the following commands in a Terminal after installing Homebrew:
 
 ```sh
-brew tap AdoptOpenJDK/openjdk
-brew cask install adoptopenjdk8
+brew cask install adoptopenjdk/openjdk/adoptopenjdk8
 ```
 
 If you have already installed JDK on your system, make sure it is JDK 8 or newer.
@@ -205,7 +204,7 @@ If you have already installed Xcode on your system, make sure it is version 9.4 
 
 You will also need to install the Xcode Command Line Tools. Open Xcode, then choose "Preferences..." from the Xcode menu. Go to the Locations panel and install the tools by selecting the most recent version in the Command Line Tools dropdown.
 
-![Xcode Command Line Tools](/react-native/docs/assets/GettingStartedXcodeCommandLineTools.png)
+![Xcode Command Line Tools](/docs/assets/GettingStartedXcodeCommandLineTools.png)
 
 <h4>Installing an iOS Simulator in Xcode</h4>
 
@@ -245,8 +244,8 @@ Setting up your development environment can be somewhat tedious if you're new to
 
 - `Android SDK`
 - `Android SDK Platform`
-- `Performance (Intel ® HAXM)` ([See here for AMD](https://android-developers.googleblog.com/2018/07/android-emulator-amd-processor-hyper-v.html))
 - `Android Virtual Device`
+- If you are not already using Hyper-V: `Performance (Intel ® HAXM)` ([See here for AMD or Hyper-V](https://android-developers.googleblog.com/2018/07/android-emulator-amd-processor-hyper-v.html))
 
 <block class="native linux android" />
 
@@ -270,11 +269,11 @@ The SDK Manager can be accessed from the "Welcome to Android Studio" screen. Cli
 
 <block class="native mac android" />
 
-![Android Studio Welcome](/react-native/docs/assets/GettingStartedAndroidStudioWelcomeMacOS.png)
+![Android Studio Welcome](/docs/assets/GettingStartedAndroidStudioWelcomeMacOS.png)
 
 <block class="native windows android" />
 
-![Android Studio Welcome](/react-native/docs/assets/GettingStartedAndroidStudioWelcomeWindows.png)
+![Android Studio Welcome](/docs/assets/GettingStartedAndroidStudioWelcomeWindows.png)
 
 <block class="native mac windows linux android" />
 
@@ -295,7 +294,7 @@ The React Native tools require some environment variables to be set up in order 
 
 <block class="native mac linux android" />
 
-Add the following lines to your `$HOME/.bash_profile` or `$HOME/.bashrc` config file:
+Add the following lines to your `$HOME/.bash_profile` or `$HOME/.bashrc` (if you are using `zsh` then `~/.zprofile` or `~/.zshrc`) config file:
 
 <block class="native mac android" />
 
@@ -327,37 +326,55 @@ Type `source $HOME/.bash_profile` to load the config into your current shell. Ve
 
 <block class="native windows android" />
 
-Open the System pane under **System and Security** in the Windows Control Panel, then click on **Change settings...**. Open the **Advanced** tab and click on **Environment Variables...**. Click on **New...** to create a new `ANDROID_HOME` user variable that points to the path to your Android SDK:
+1. Open the **Windows Control Panel.**
+2. Click on **User Accounts,** then click **User Accounts** again
+3. Click on **Change my environment variables**
+4. Click on **New...** to create a new `ANDROID_HOME` user variable that points to the path to your Android SDK:
 
-![ANDROID_HOME Environment Variable](/react-native/docs/assets/GettingStartedAndroidEnvironmentVariableANDROID_HOME.png)
+![ANDROID_HOME Environment Variable](/docs/assets/GettingStartedAndroidEnvironmentVariableANDROID_HOME.png)
 
 The SDK is installed, by default, at the following location:
 
 ```powershell
-c:\Users\YOUR_USERNAME\AppData\Local\Android\Sdk
+c:\Android\tools\bin
 ```
 
 You can find the actual location of the SDK in the Android Studio "Preferences" dialog, under **Appearance & Behavior** → **System Settings** → **Android SDK**.
 
 Open a new Command Prompt window to ensure the new environment variable is loaded before proceeding to the next step.
 
+1. Open powershell
+2. Copy and paste **Get-ChildItem -Path Env:\\** into powershell
+3. Verify `ANDROID_HOME` has been added
+
 <h4>4. Add platform-tools to Path</h4>
 
-Open the System pane under **System and Security** in the Windows Control Panel, then click on **Change settings...**. Open the **Advanced** tab and click on **Environment Variables...**. Select the **Path** variable, then click **Edit**. Click **New** and add the path to platform-tools to the list.
+1. Open the **Windows Control Panel.**
+2. Click on **User Accounts,** then click **User Accounts** again
+3. Click on **Change my environment variables**
+4. Select the **Path** variable.
+5. Click **Edit.**
+6. Click **New** and add the path to platform-tools to the list.
 
 The default location for this folder is:
 
 ```powershell
-c:\Users\YOUR_USERNAME\AppData\Local\Android\Sdk\platform-tools
+C:\Android\tools\bin\platform-tools
 ```
 
 <block class="native linux android" />
 
 <h3>Watchman</h3>
 
-Follow the [Watchman installation guide](https://facebook.github.io/watchman/docs/install.html#buildinstall) to compile and install Watchman from source.
+Follow the [Watchman installation guide](https://facebook.github.io/watchman/docs/install/#buildinstall) to compile and install Watchman from source.
 
-> [Watchman](https://facebook.github.io/watchman/docs/install.html) is a tool by Facebook for watching changes in the filesystem. It is highly recommended you install it for better performance and increased compatibility in certain edge cases (translation: you may be able to get by without installing this, but your mileage may vary; installing this now may save you from a headache later).
+> [Watchman](https://facebook.github.io/watchman/docs/install/) is a tool by Facebook for watching changes in the filesystem. It is highly recommended you install it for better performance and increased compatibility in certain edge cases (translation: you may be able to get by without installing this, but your mileage may vary; installing this now may save you from a headache later).
+
+<block class="native mac windows linux ios android" />
+
+<h3>React Native Command Line Interface</h3>
+
+React Native has a built-in command line interface. Rather than install and manage a specific version of the CLI globally, we recommend you access the current version at runtime using `npx`, which ships with Node.js. With `npx react-native <command>`, the current stable version of the CLI will be downloaded and executed at the time the command is run.
 
 <block class="native mac ios" />
 
@@ -365,7 +382,7 @@ Follow the [Watchman installation guide](https://facebook.github.io/watchman/doc
 
 > If you previously installed a global `react-native-cli` package, please remove it as it may cause unexpected issues.
 
-React Native has a built-in command line interface, which you can use to generate a new project. You can access it without installing anything globally using `npx`, which ships with Node.js. Let's create a new React Native project called "AwesomeProject":
+You can use React Native's built-in command line interface to generate a new project. Let's create a new React Native project called "AwesomeProject":
 
 ```sh
 npx react-native init AwesomeProject
@@ -386,6 +403,8 @@ You can also start a project with a custom React Native template, like TypeScrip
 ```sh
 npx react-native init AwesomeTSProject --template react-native-template-typescript
 ```
+
+> **Note** If the above command is failing, you may have old version of `react-native` or `react-native-cli` installed globally on your pc. Try uninstalling the cli and run the cli using `npx`.
 
 <block class="native mac windows linux android" />
 
@@ -431,7 +450,7 @@ If you have a physical Android device, you can use it for development in place o
 
 If you use Android Studio to open `./AwesomeProject/android`, you can see the list of available Android Virtual Devices (AVDs) by opening the "AVD Manager" from within Android Studio. Look for an icon that looks like this:
 
-![Android Studio AVD Manager](/react-native/docs/assets/GettingStartedAndroidStudioAVD.png)
+![Android Studio AVD Manager](/docs/assets/GettingStartedAndroidStudioAVD.png)
 
 If you have recently installed Android Studio, you will likely need to [create a new AVD](https://developer.android.com/studio/run/managing-avds.html). Select "Create Virtual Device...", then pick any Phone from the list and click "Next", then select the **Pie** API Level 28 image.
 
@@ -455,18 +474,41 @@ Click "Next" then "Finish" to create your AVD. At this point you should be able 
 
 <h2>Running your React Native application</h2>
 
-> If you use the Yarn package manager, you can use `yarn` instead of `npx` when running React Native commands inside an existing project.
+<h3>Step 1: Start Metro</h3>
 
-Run `npx react-native run-ios` inside your React Native project folder:
+First, you will need to start Metro, the JavaScript bundler that ships with React Native. Metro "takes in an entry file and various options, and returns a single JavaScript file that includes all your code and its dependencies."—[Metro Docs](https://facebook.github.io/metro/docs/concepts)
+
+To start Metro, run `npx react-native start` inside your React Native project folder:
 
 ```sh
-cd AwesomeProject
+npx react-native start
+```
+
+`react-native start` starts Metro Bundler.
+
+> If you use the Yarn package manager, you can use `yarn` instead of `npx` when running React Native commands inside an existing project.
+
+<block class="webNote devNotes" />
+
+> Metro is a lot like webpack—for React Native apps.
+
+<block class="androidNote devNotes" />
+
+> Unlike Kotlin or Java, JavaScript isn't compiled—and neither is React Native. Bundling isn't the same as compiling, but it can help improve startup performance and translate some platform-specific JavaScript into more JavaScript.
+
+<block class="endBlock devNotes" />
+
+<h3>Step 2: Start your application</h3>
+
+Let Metro Bundler run in its own terminal. Open a new terminal inside your React Native project folder. Run the following:
+
+```sh
 npx react-native run-ios
 ```
 
 You should see your new app running in the iOS Simulator shortly.
 
-![AwesomeProject on iOS](/react-native/docs/assets/GettingStartediOSSuccess.png)
+![AwesomeProject on iOS](/docs/assets/GettingStartediOSSuccess.png)
 
 `npx react-native run-ios` is one way to run your app. You can also run it directly from within Xcode.
 
@@ -480,12 +522,35 @@ The above command will automatically run your app on the iOS Simulator by defaul
 
 <h2>Running your React Native application</h2>
 
-> If you use the Yarn package manager, you can use `yarn` instead of `npx` when running React Native commands inside an existing project.
+<h3>Step 1: Start Metro</h3>
 
-Run `npx react-native run-android` inside your React Native project folder:
+First, you will need to start Metro, the JavaScript bundler that ships with React Native. Metro "takes in an entry file and various options, and returns a single JavaScript file that includes all your code and its dependencies."—[Metro Docs](https://facebook.github.io/metro/docs/concepts)
+
+To start Metro, run `npx react-native start` inside your React Native project folder:
 
 ```sh
-cd AwesomeProject
+npx react-native start
+```
+
+`react-native start` starts Metro Bundler.
+
+> If you use the Yarn package manager, you can use `yarn` instead of `npx` when running React Native commands inside an existing project.
+
+<block class="webNote devNotes" />
+
+> Metro is a lot like webpack—for React Native apps.
+
+<block class="androidNote devNotes" />
+
+> Unlike Kotlin or Java, JavaScript isn't compiled—and neither is React Native. Bundling isn't the same as compiling, but it can help improve startup performance and translate some platform-specific JavaScript into more JavaScript.
+
+<block class="endBlock devNotes" />
+
+<h3>Step 2: Start your application</h3>
+
+Let Metro Bundler run in its own terminal. Open a new terminal inside your React Native project folder. Run the following:
+
+```sh
 npx react-native run-android
 ```
 
@@ -493,11 +558,11 @@ If everything is set up correctly, you should see your new app running in your A
 
 <block class="native mac android" />
 
-![AwesomeProject on Android](/react-native/docs/assets/GettingStartedAndroidSuccessMacOS.png)
+![AwesomeProject on Android](/docs/assets/GettingStartedAndroidSuccessMacOS.png)
 
 <block class="native windows android" />
 
-![AwesomeProject on Android](/react-native/docs/assets/GettingStartedAndroidSuccessWindows.png)
+![AwesomeProject on Android](/docs/assets/GettingStartedAndroidSuccessWindows.png)
 
 <block class="native mac windows linux android" />
 
@@ -536,7 +601,7 @@ Now that you have successfully run the app, let's modify it.
 
 Congratulations! You've successfully run and modified your first React Native app.
 
-<center><img src="/react-native/docs/assets/GettingStartedCongratulations.png" width="150"></img></center>
+<center><img src="/docs/assets/GettingStartedCongratulations.png" width="150"></img></center>
 
 <block class="native windows linux android" />
 
@@ -544,24 +609,20 @@ Congratulations! You've successfully run and modified your first React Native ap
 
 Congratulations! You've successfully run and modified your first React Native app.
 
-<center><img src="/react-native/docs/assets/GettingStartedCongratulations.png" width="150"></img></center>
+<center><img src="/docs/assets/GettingStartedCongratulations.png" width="150"></img></center>
 
 <block class="native mac ios" />
 
 <h2>Now what?</h2>
 
-- Turn on [Fast Refresh](debugging.md#enabling-fast-refresh) in the Developer Menu. Your app will now reload automatically whenever you save any changes!
-
 - If you want to add this new React Native code to an existing application, check out the [Integration guide](integration-with-existing-apps.md).
 
-If you're curious to learn more about React Native, continue on to the [Tutorial](tutorial.md).
+If you're curious to learn more about React Native, check out the [Introduction to React Native](getting-started).
 
 <block class="native windows linux mac android" />
 
 <h2>Now what?</h2>
 
-- Turn on [Fast Refresh](debugging.md#enabling-fast-refresh) in the Developer Menu. Your app will now reload automatically whenever you save any changes!
-
 - If you want to add this new React Native code to an existing application, check out the [Integration guide](integration-with-existing-apps.md).
 
-If you're curious to learn more about React Native, continue on to the [Tutorial](tutorial.md).
+If you're curious to learn more about React Native, check out the [Introduction to React Native](getting-started).

@@ -26,26 +26,27 @@ one team can maintain two platforms and share a common technology—React.
 import React from 'react';
 import {Text, View} from 'react-native';
 import {Header} from './Header';
+import {heading} from './Typography';
 
-const WelcomeScreen = () => 
+const WelcomeScreen = () =>
   <View>
     <Header title="Welcome to React Native"/>
-    <Text style={header}>Step One</Text>
+    <Text style={heading}>Step One</Text>
     <Text>
       Edit App.js to change this screen and turn it
       into your app.
     </Text>
-    <Text style={header}>See Your Changes</Text>
+    <Text style={heading}>See Your Changes</Text>
     <Text>
       Press Cmd + R inside the simulator to reload
       your app’s code.
     </Text>
-    <Text style={header}>Debug</Text>
+    <Text style={heading}>Debug</Text>
     <Text>
       Press Cmd + M or Shake your device to open the
       React Native Debug Menu.
     </Text>
-    <Text style={header}>Learn</Text>
+    <Text style={heading}>Learn</Text>
     <Text>
       Read the docs to discover what to do next:
     </Text>
@@ -76,13 +77,13 @@ Twitter
   `,
   community: `
 In 2018, React Native had the [2nd highest] number of contributors for any repository in GitHub.
-Today, React Native is supported by contributions from individuals and companies around the world 
+Today, React Native is supported by contributions from individuals and companies around the world
 including [Callstack], [Expo], [Infinite Red], [Microsoft], and [Software Mansion].
 
 Our community is always shipping exciting new projects and exploring platforms beyond Android and iOS
 with repos like React Native Windows and React Native Web.
 
-[2nd highest]: https://octoverse.github.com/projects#repositories
+[2nd highest]: https://octoverse.github.com/2018/projects.html#repositories
 [Callstack]: https://callstack.com/
 [Expo]: https://expo.io/
 [Infinite Red]: https://infinite.red/
@@ -136,7 +137,7 @@ function TwitterButton({showCount = false}) {
   return (
     <a
       href="https://twitter.com/reactnative?ref_src=twsrc%5Etfw"
-      class="twitter-follow-button"
+      className="twitter-follow-button"
       data-size="large"
       data-show-count={`${showCount}`}>
       Follow @reactnative
@@ -147,7 +148,7 @@ function TwitterButton({showCount = false}) {
 function GitHubButton() {
   return (
     <a
-      class="github-button"
+      className="github-button"
       href="https://github.com/facebook/react-native"
       data-icon="octicon-star"
       data-size="large"
@@ -226,7 +227,7 @@ function LogoAnimation() {
         className="base"
       />
       <ScreenRect className="background" stroke="none" />
-      <g clip-path="url(#screen)" className="logo">
+      <g clipPath="url(#screen)" className="logo">
         <g className="logoInner">
           <circle cx="0" cy="0" r="30" fill="#61dafb" />
           <g stroke="#61dafb" strokeWidth="15" fill="none" id="logo">
@@ -322,7 +323,11 @@ function NativeDevelopment() {
         columnTwo={
           <div className="dissection">
             {[0, 1, 2, 3].map(i => (
-              <img alt="" src={`${baseUrl}img/homepage/dissection/${i}.png`} />
+              <img
+                alt=""
+                key={i}
+                src={`${baseUrl}img/homepage/dissection/${i}.png`}
+              />
             ))}
           </div>
         }
@@ -466,7 +471,7 @@ function GetStarted() {
         <ol className="steps">
           <li>
             <p>Run this</p>
-            <div class="terminal">
+            <div className="terminal">
               <code>npx react-native init MyTestApp</code>
             </div>
           </li>

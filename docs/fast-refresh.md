@@ -29,10 +29,19 @@ Fast Refresh tries to preserve local React state in the component you're editing
 - The module you're editing might have _other_ exports in addition to a React component.
 - Sometimes, a module would export the result of calling higher-order component like `createNavigationContainer(MyScreen)`. If the returned component is a class, state will be reset.
 
-In longer term, as more of your codebase moves to function components and Hooks, you can expect state to be preserved in more cases.
+In the longer term, as more of your codebase moves to function components and Hooks, you can expect state to be preserved in more cases.
 
 ## Tips
 
 - Fast Refresh preserves React local state in function components (and Hooks) by default.
 - Sometimes you might want to _force_ the state to be reset, and a component to be remounted. For example, this can be handy if you're tweaking an animation that only happens on mount. To do this, you can add `// @refresh reset` anywhere in the file you're editing. This directive is local to the file, and instructs Fast Refresh to remount components defined in that file on every edit.
-- You can put `console.log` or `debugger;` into the components you edit during a Fast Refresh session.
+
+## Fast Refresh and Hooks
+
+When possible, Fast Refresh attempts to preserve the state of your component between edits. In particular, `useState` and `useRef` preserve their previous values as long as you don't change their arguments or the order of the Hook calls.
+
+Hooks with dependencies—such as `useEffect`, `useMemo`, and `useCallback`—will _always_ update during Fast Refresh. Their list of dependencies will be ignored while Fast Refresh is happening.
+
+For example, when you edit `useMemo(() => x * 2, [x])` to `useMemo(() => x * 10, [x])`, it will re-run even though `x` (the dependency) has not changed. If React didn't do that, your edit wouldn't reflect on the screen!
+
+Sometimes, this can lead to unexpected results. For example, even a `useEffect` with an empty array of dependencies would still re-run once during Fast Refresh. However, writing code resilient to an occasional re-running of `useEffect` is a good practice even without Fast Refresh. This makes it easier for you to later introduce new dependencies to it.

@@ -40,6 +40,7 @@ export default class TextInANest extends Component {
 const styles = StyleSheet.create({
   baseText: {
     fontFamily: 'Cochin',
+    marginVertical: 20,
   },
   titleText: {
     fontSize: 20,
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
 
 ## Nested text
 
-Both iOS and Android allow you to display formatted text by annotating ranges of a string with specific formatting like bold or colored text (`NSAttributedString` on iOS, `SpannableString` on Android). In practice, this is very tedious. For React Native, we decided to use web paradigm for this where you can nest text to achieve the same effect.
+Both Android and iOS allow you to display formatted text by annotating ranges of a string with specific formatting like bold or colored text (`NSAttributedString` on iOS, `SpannableString` on Android). In practice, this is very tedious. For React Native, we decided to use web paradigm for this where you can nest text to achieve the same effect.
 
 ```SnackPlayer name=Nested
 import React, { Component } from 'react';
@@ -157,7 +158,9 @@ class MyAppHeaderText extends Component {
   render() {
     return (
       <MyAppText>
-        <Text style={{fontSize: 20}}>{this.props.children}</Text>
+        <Text style={{ fontSize: 20 }}>
+          {this.props.children}
+        </Text>
       </MyAppText>
     );
   }
@@ -169,9 +172,9 @@ Composing `MyAppText` in this way ensures that we get the styles from a top-leve
 React Native still has the concept of style inheritance, but limited to text subtrees. In this case, the second part will be both bold and red.
 
 ```jsx
-<Text style={{fontWeight: 'bold'}}>
+<Text style={{ fontWeight: 'bold' }}>
   I am bold
-  <Text style={{color: 'red'}}>and red</Text>
+  <Text style={{ color: 'red' }}>and red</Text>
 </Text>
 ```
 
@@ -562,7 +565,7 @@ The highlight color of the text.
 
 - **`textAlign`**: enum('auto', 'left', 'right', 'center', 'justify')
 
-  Specifies text alignment. The value 'justify' is only supported on iOS and Android Oreo (8.0) or above (API level >= 26). For lower android version it will fallback to `left`.
+  Specifies text alignment. On Android, the value 'justify' is only supported on Oreo (8.0) or above (API level >= 26). The value will fallback to `left` on lower Android versions.
 
 - **`textDecorationLine`**: enum('none', 'underline', 'line-through', 'underline line-through')
 

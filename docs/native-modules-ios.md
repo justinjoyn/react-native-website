@@ -62,12 +62,15 @@ RCT_EXPORT_METHOD(addEvent:(NSString *)name location:(NSString *)location)
 @end
 ```
 
-Now, from your JavaScript file you can call the method like this:
+Now, from your JavaScript file you can call the method like this (after making sure to rebuild):
 
 ```jsx
-import {NativeModules} from 'react-native';
+import { NativeModules } from 'react-native';
 var CalendarManager = NativeModules.CalendarManager;
-CalendarManager.addEvent('Birthday Party', '4 Privet Drive, Surrey');
+CalendarManager.addEvent(
+  'Birthday Party',
+  '4 Privet Drive, Surrey'
+);
 ```
 
 > **NOTE**: JavaScript method names
@@ -122,7 +125,7 @@ You would then call this from JavaScript by using either:
 CalendarManager.addEvent(
   'Birthday Party',
   '4 Privet Drive, Surrey',
-  date.getTime(),
+  date.getTime()
 ); // passing date as number of milliseconds since Unix epoch
 ```
 
@@ -132,7 +135,7 @@ or
 CalendarManager.addEvent(
   'Birthday Party',
   '4 Privet Drive, Surrey',
-  date.toISOString(),
+  date.toISOString()
 ); // passing date as ISO-8601 string
 ```
 
@@ -157,7 +160,7 @@ and call it from JavaScript:
 CalendarManager.addEvent('Birthday Party', {
   location: '4 Privet Drive, Surrey',
   time: date.getTime(),
-  description: '...',
+  description: '...'
 });
 ```
 
@@ -188,12 +191,12 @@ CalendarManager.findEvents((error, events) => {
   if (error) {
     console.error(error);
   } else {
-    this.setState({events: events});
+    this.setState({ events: events });
   }
 });
 ```
 
-A native module should invoke its callback exactly once. It's okay to store the callback and invoke it later. This pattern is often used to wrap iOS APIs that require delegates - see [`RCTAlertManager`](https://github.com/facebook/react-native/blob/master/React/Modules/RCTAlertManager.m) for an example. If the callback is never invoked, some memory is leaked. If both `onSuccess` and `onFail` callbacks are passed, you should only invoke one of them.
+A native module should invoke its callback exactly once. It's okay to store the callback and invoke it later. This pattern is often used to wrap iOS APIs that require delegates - see [`RCTAlertManager`](https://github.com/facebook/react-native/blob/master/React/CoreModules/RCTAlertManager.mm) for an example. If the callback is never invoked, some memory is leaked. If both `onSuccess` and `onFail` callbacks are passed, you should only invoke one of them.
 
 If you want to pass error-like objects to JavaScript, use `RCTMakeError` from [`RCTUtils.h`](https://github.com/facebook/react-native/blob/master/React/Base/RCTUtils.h). Right now this only passes an Error-shaped dictionary to JavaScript, but we would like to automatically generate real JavaScript `Error` objects in the future.
 
@@ -221,15 +224,15 @@ RCT_REMAP_METHOD(findEvents,
 The JavaScript counterpart of this method returns a Promise. This means you can use the `await` keyword within an async function to call it and wait for its result:
 
 ```jsx
-async function updateEvents() {
+const updateEvents = async () => {
   try {
     var events = await CalendarManager.findEvents();
 
-    this.setState({events});
+    this.setState({ events });
   } catch (e) {
     console.error(e);
   }
-}
+};
 
 updateEvents();
 ```
@@ -316,6 +319,23 @@ If you override `- constantsToExport` then you should also implement `+ requires
 + (BOOL)requiresMainQueueSetup
 {
   return YES;  // only do this if your module initialization relies on calling UIKit!
+}
+```
+
+```Swift
+//Swift
+
+// CalendarManager.swift
+
+@objc(CalendarManager)
+class CalendarManager: NSObject, RCTBridgeModule {
+
+static func moduleName() -> String! {
+      return "CalendarManager";
+}
+
+static func requiresMainQueueSetup() -> Bool {
+    return true
 }
 ```
 
@@ -415,8 +435,6 @@ const subscription = calendarManagerEmitter.addListener(
 subscription.remove();
 ```
 
-For more examples of sending events to JavaScript, see [`RCTLocationObserver`](https://github.com/facebook/react-native/blob/master/Libraries/Geolocation/RCTLocationObserver.m).
-
 ### Optimizing for zero listeners
 
 You will receive a warning if you expend resources unnecessarily by emitting an event while there are no listeners. To avoid this, and to optimize your module's workload (e.g. by unsubscribing from upstream notifications or pausing background tasks), you can override `startObserving` and `stopObserving` in your `RCTEventEmitter` subclass.
@@ -498,3 +516,9 @@ For those of you new to Swift and Objective-C, whenever you [mix the two languag
 You can also use `RCT_EXTERN_REMAP_MODULE` and `_RCT_EXTERN_REMAP_METHOD` to alter the JavaScript name of the module or methods you are exporting. For more information see [`RCTBridgeModule`](https://github.com/facebook/react-native/blob/master/React/Base/RCTBridgeModule.h).
 
 > **Important when making third party modules**: Static libraries with Swift are only supported in Xcode 9 and later. In order for the Xcode project to build when you use Swift in the iOS static library you include in the module, your main app project must contain Swift code and a bridging header itself. If your app project does not contain any Swift code, a workaround can be a single empty .swift file and an empty bridging header.
+
+## Reserved Method Names
+
+### invalidate()
+
+Native modules can conform to the [RCTInvalidating](https://github.com/facebook/react-native/blob/master/React/Base/RCTInvalidating.h) protocol on iOS by implementing the `invalidate` method. This method [can be invoked](https://github.com/facebook/react-native/blob/master/ReactCommon/turbomodule/core/platform/ios/RCTTurboModuleManager.mm#L756) when the native bridge is invalidated (ie: on devmode reload). You should avoid implementing this method in general, as this mechanism exists for backwards compatibility and may be removed in the future.

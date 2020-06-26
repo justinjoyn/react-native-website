@@ -9,41 +9,76 @@ The most fundamental component for building a UI, `View` is a container that sup
 
 This example creates a `View` that wraps two boxes with color and a text component in a row with padding.
 
-```jsx
-class ViewBoxesWithColorAndText extends Component {
+<div class="toggler">
+  <ul role="tablist" class="toggle-syntax">
+    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
+      Function Component Example
+    </li>
+    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
+      Class Component Example
+    </li>
+  </ul>
+</div>
+
+<block class="functional syntax" />
+
+```SnackPlayer name=View%20Function%20Component%20Example
+import React from "react";
+import { View, Text } from "react-native";
+
+const ViewBoxesWithColorAndText = () => {
+  return (
+    <View
+      style={{
+        flexDirection: "row",
+        height: 100,
+        padding: 20
+      }}
+    >
+      <View style={{ backgroundColor: "blue", flex: 0.3 }} />
+      <View style={{ backgroundColor: "red", flex: 0.5 }} />
+      <Text>Hello World!</Text>
+    </View>
+  );
+};
+
+export default ViewBoxesWithColorAndText;
+```
+
+<block class="classical syntax" />
+
+```SnackPlayer name=View%20Class%20Component%20Example
+import React, { Component } from "react";
+import { View, Text } from "react-native";
+
+class App extends Component {
   render() {
     return (
       <View
         style={{
-          flexDirection: 'row',
+          flexDirection: "row",
           height: 100,
-          padding: 20,
-        }}>
-        <View style={{backgroundColor: 'blue', flex: 0.3}} />
-        <View style={{backgroundColor: 'red', flex: 0.5}} />
+          padding: 20
+        }}
+      >
+        <View style={{ backgroundColor: "blue", flex: 0.3 }} />
+        <View style={{ backgroundColor: "red", flex: 0.5 }} />
         <Text>Hello World!</Text>
       </View>
     );
   }
 }
+
+export default App;
 ```
+
+<block class="endBlock syntax" />
 
 > `View`s are designed to be used with [`StyleSheet`](style.md) for clarity and performance, although inline styles are also supported.
 
 ### Synthetic Touch Events
 
-For `View` responder props (e.g., `onResponderMove`), the synthetic touch event passed to them are of the following form:
-
-- `nativeEvent`
-  - `changedTouches` - Array of all touch events that have changed since the last event.
-  - `identifier` - The ID of the touch.
-  - `locationX` - The X position of the touch, relative to the element.
-  - `locationY` - The Y position of the touch, relative to the element.
-  - `pageX` - The X position of the touch, relative to the root element.
-  - `pageY` - The Y position of the touch, relative to the root element.
-  - `target` - The node id of the element receiving the touch event.
-  - `timestamp` - A time identifier for the touch, useful for velocity calculation.
-  - `touches` - Array of all current touches on the screen.
+For `View` responder props (e.g., `onResponderMove`), the synthetic touch event passed to them are in form of [PressEvent](pressevent).
 
 ---
 
@@ -55,7 +90,7 @@ For `View` responder props (e.g., `onResponderMove`), the synthetic touch event 
 
 Does this view want to become responder on the start of a touch?
 
-`View.props.onStartShouldSetResponder: (event) => [true | false]`, where `event` is a synthetic touch event as described above.
+`View.props.onStartShouldSetResponder: (event) => [true | false]`, where `event` is a [PressEvent](pressevent).
 
 | Type     | Required |
 | -------- | -------- |
@@ -326,7 +361,7 @@ This event is fired immediately once the layout has been calculated, but the new
 
 Does this view want to "claim" touch responsiveness? This is called for every touch move on the `View` when it is not the responder.
 
-`View.props.onMoveShouldSetResponder: (event) => [true | false]`, where `event` is a synthetic touch event as described above.
+`View.props.onMoveShouldSetResponder: (event) => [true | false]`, where `event` is a [PressEvent](pressevent).
 
 | Type     | Required |
 | -------- | -------- |
@@ -338,7 +373,7 @@ Does this view want to "claim" touch responsiveness? This is called for every to
 
 If a parent `View` wants to prevent a child `View` from becoming responder on a move, it should have this handler which returns `true`.
 
-`View.props.onMoveShouldSetResponderCapture: (event) => [true | false]`, where `event` is a synthetic touch event as described above.
+`View.props.onMoveShouldSetResponderCapture: (event) => [true | false]`, where `event` is a [PressEvent](pressevent).
 
 | Type     | Required |
 | -------- | -------- |
@@ -350,7 +385,7 @@ If a parent `View` wants to prevent a child `View` from becoming responder on a 
 
 The View is now responding for touch events. This is the time to highlight and show the user what is happening.
 
-`View.props.onResponderGrant: (event) => {}`, where `event` is a synthetic touch event as described above.
+`View.props.onResponderGrant: (event) => {}`, where `event` is a [PressEvent](pressevent).
 
 | Type     | Required |
 | -------- | -------- |
@@ -362,7 +397,7 @@ The View is now responding for touch events. This is the time to highlight and s
 
 The user is moving their finger.
 
-`View.props.onResponderMove: (event) => {}`, where `event` is a synthetic touch event as described above.
+`View.props.onResponderMove: (event) => {}`, where `event` is a [PressEvent](pressevent).
 
 | Type     | Required |
 | -------- | -------- |
@@ -374,7 +409,7 @@ The user is moving their finger.
 
 Another responder is already active and will not release it to that `View` asking to be the responder.
 
-`View.props.onResponderReject: (event) => {}`, where `event` is a synthetic touch event as described above.
+`View.props.onResponderReject: (event) => {}`, where `event` is a [PressEvent](pressevent).
 
 | Type     | Required |
 | -------- | -------- |
@@ -386,7 +421,7 @@ Another responder is already active and will not release it to that `View` askin
 
 Fired at the end of the touch.
 
-`View.props.onResponderRelease: (event) => {}`, where `event` is a synthetic touch event as described above.
+`View.props.onResponderRelease: (event) => {}`, where `event` is a [PressEvent](pressevent).
 
 | Type     | Required |
 | -------- | -------- |
@@ -398,7 +433,7 @@ Fired at the end of the touch.
 
 The responder has been taken from the `View`. Might be taken by other views after a call to `onResponderTerminationRequest`, or might be taken by the OS without asking (e.g., happens with control center/ notification center on iOS)
 
-`View.props.onResponderTerminate: (event) => {}`, where `event` is a synthetic touch event as described above.
+`View.props.onResponderTerminate: (event) => {}`, where `event` is a [PressEvent](pressevent).
 
 | Type     | Required |
 | -------- | -------- |
@@ -410,7 +445,7 @@ The responder has been taken from the `View`. Might be taken by other views afte
 
 Some other `View` wants to become responder and is asking this `View` to release its responder. Returning `true` allows its release.
 
-`View.props.onResponderTerminationRequest: (event) => {}`, where `event` is a synthetic touch event as described above.
+`View.props.onResponderTerminationRequest: (event) => {}`, where `event` is a [PressEvent](pressevent).
 
 | Type     | Required |
 | -------- | -------- |
@@ -422,7 +457,7 @@ Some other `View` wants to become responder and is asking this `View` to release
 
 If a parent `View` wants to prevent a child `View` from becoming responder on a touch start, it should have this handler which returns `true`.
 
-`View.props.onStartShouldSetResponderCapture: (event) => [true | false]`, where `event` is a synthetic touch event as described above.
+`View.props.onStartShouldSetResponderCapture: (event) => [true | false]`, where `event` is a [PressEvent](pressevent).
 
 | Type     | Required |
 | -------- | -------- |
@@ -594,9 +629,9 @@ Designates the next view to receive focus when the user navigates up. See the [A
 
 ---
 
-### `clickable`
+### `focusable`
 
-Determines whether this `View` is clickable or tappable for accessibility hints.
+Whether this `View` should be focusable with a non-touch input device, eg. receive focus with a hardware keyboard.
 
 | Type    | Required | Platform |
 | ------- | -------- | -------- |

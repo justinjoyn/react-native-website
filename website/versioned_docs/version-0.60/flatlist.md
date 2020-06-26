@@ -192,7 +192,7 @@ Inherits [ScrollView Props](scrollview.md#props), unless it is nested in another
 ### `renderItem`
 
 ```jsx
-renderItem({item, index, separators});
+renderItem({ item, index, separators });
 ```
 
 Takes an item from `data` and renders it into the list.
@@ -616,7 +616,7 @@ Valid `params` keys are:
 
 - 'animated' (boolean) - Whether the list should do an animation while scrolling. Defaults to `true`.
 - 'index' (number) - The index to scroll to. Required.
-- 'viewOffset' (number) - A fixed number of pixels to offset the final target position. Required.
+- 'viewOffset' (number) - A fixed number of pixels to offset the final target position.
 - 'viewPosition' (number) - A value of `0` places the item specified by index at the top, `1` at the bottom, and `0.5` centered in the middle.
 
 ---

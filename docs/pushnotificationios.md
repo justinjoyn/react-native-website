@@ -1,6 +1,6 @@
 ---
 id: pushnotificationios
-title: PushNotificationIOS
+title: 🚧 PushNotificationIOS
 ---
 
 > **Deprecated.** Use [@react-native-community/push-notification-ios](https://github.com/react-native-community/react-native-push-notification-ios) instead.
@@ -8,7 +8,7 @@ title: PushNotificationIOS
 <div class="banner-native-code-required">
   <h3>Projects with Native Code Only</h3>
   <p>
-    The following section only applies to projects with native code exposed. If you are using the managed `expo-cli` workflow, see the guide on <a href="https://docs.expo.io/versions/latest/sdk/notifications/">Notifications</a> in the Expo documentation for the appropriate alternative.
+    The following section only applies to projects with native code exposed. If you are using the managed <code>expo-cli</code> workflow, see the guide on <a href="https://docs.expo.io/versions/latest/sdk/notifications/">Notifications</a> in the Expo documentation for the appropriate alternative.
   </p>
 </div>
 
@@ -28,15 +28,11 @@ Add the PushNotificationIOS library to your Podfile: ./ios/Podfile
 
   - Add the PushNotificationIOS library to your Podfile: ./ios/Podfile
 
-    ```
-
-    ``
-    ..
-    do
-    pp
-    ..
-    S'
-    ...
+    ```ruby
+    target 'myAwesomeApp' do
+      # Pods for myAwesomeApp
+      pod 'React-RCTPushNotification', :path => '../node_modules/react-native/Libraries/PushNotificationIOS'
+    end
     ```
 
 - [Manually link](linking-libraries-ios.md#manual-linking) the PushNotificationIOS library:
@@ -131,13 +127,13 @@ Schedules the localNotification for immediate presentation.
 details is an object containing:
 
 - `alertBody` : The message displayed in the notification alert.
+- `alertAction` : The "action" displayed beneath an actionable notification. Defaults to "view". Note that Apple no longer shows this in iOS 10 +
 - `alertTitle` : The text displayed as the title of the notification alert.
-- `alertAction` : The "action" displayed beneath an actionable notification. Defaults to "view";
 - `soundName` : The sound played when the notification is fired (optional).
 - `isSilent` : If true, the notification will appear without sound (optional).
 - `category` : The category of this notification, required for actionable notifications (optional).
-- `userInfo` : An optional object containing additional notification data.
-- `applicationIconBadgeNumber` (optional) : The number to display as the app's icon badge. The default value of this property is 0, which means that no badge is displayed.
+- `userInfo` : An object containing additional notification data (optional).
+- `applicationIconBadgeNumber` The number to display as the app's icon badge. The default value of this property is 0, which means that no badge is displayed (optional).
 
 ---
 
@@ -160,13 +156,13 @@ details is an object containing:
 - `fireDate` : The date and time when the system should deliver the notification.
 - `alertTitle` : The text displayed as the title of the notification alert.
 - `alertBody` : The message displayed in the notification alert.
-- `alertAction` : The "action" displayed beneath an actionable notification. Defaults to "view";
+- `alertAction` : The "action" displayed beneath an actionable notification. Defaults to "view". Note that Apple no longer shows this in iOS 10 +
 - `soundName` : The sound played when the notification is fired (optional).
 - `isSilent` : If true, the notification will appear without sound (optional).
 - `category` : The category of this notification, required for actionable notifications (optional).
-- `userInfo` : An optional object containing additional notification data.
-- `applicationIconBadgeNumber` (optional) : The number to display as the app's icon badge. Setting the number to 0 removes the icon badge.
-- `repeatInterval` : The interval to repeat as a string. Possible values: `minute`, `hour`, `day`, `week`, `month`, `year`.
+- `userInfo` : An object containing additional notification data (optional).
+- `applicationIconBadgeNumber` The number to display as the app's icon badge. Setting the number to 0 removes the icon badge (optional).
+- `repeatInterval` : The interval to repeat as a string. Possible values: `minute`, `hour`, `day`, `week`, `month`, `year` (optional).
 
 ---
 
@@ -209,8 +205,8 @@ A delivered notification is an object containing:
 - `identifier` : The identifier of this notification.
 - `title` : The title of this notification.
 - `body` : The body of this notification.
-- `category` : The category of this notification, if has one.
-- `userInfo` : An optional object containing additional notification data.
+- `category` : The category of this notification (optional).
+- `userInfo` : An object containing additional notification data (optional).
 - `thread-id` : The thread identifier of this notification, if has one.
 
 ---
@@ -422,7 +418,7 @@ You will never need to instantiate `PushNotificationIOS` yourself. Listening to 
 finish(fetchResult);
 ```
 
-This method is available for remote notifications that have been received via: `application:didReceiveRemoteNotification:fetchCompletionHandler:` https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplicationDelegate_Protocol/#//apple_ref/occ/intfm/UIApplicationDelegate/application:didReceiveRemoteNotification:fetchCompletionHandler:
+This method is available for remote notifications that have been received via: `application:didReceiveRemoteNotification:fetchCompletionHandler:` https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1623013-application?language=objc
 
 Call this to execute when the remote notification handling is complete. When calling this block, pass in the fetch result value that best describes the results of your operation. You _must_ call this handler and should do so as soon as possible. For a list of possible values, see `PushNotificationIOS.FetchResult`.
 

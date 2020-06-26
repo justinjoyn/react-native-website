@@ -5,85 +5,127 @@ title: ActivityIndicator
 
 Displays a circular loading indicator.
 
-### Example
+## Example
 
-```SnackPlayer name=activityindicator
-import React, { Component } from 'react'
-import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
+<div class="toggler">
+  <ul role="tablist" class="toggle-syntax">
+    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
+      Function Component Example
+    </li>
+    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
+      Class Component Example
+    </li>
+  </ul>
+</div>
 
-export default class App extends Component {
+<block class="functional syntax" />
+
+```SnackPlayer name=ActivityIndicator%20Function%20Component%20Example
+import React from "react";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+
+const App = () => (
+  <View style={[styles.container, styles.horizontal]}>
+    <ActivityIndicator />
+    <ActivityIndicator size="large" />
+    <ActivityIndicator size="small" color="#0000ff" />
+    <ActivityIndicator size="large" color="#00ff00" />
+  </View>
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center"
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10
+  }
+});
+
+export default App;
+```
+
+<block class="classical syntax" />
+
+```SnackPlayer name=ActivityIndicator%20Class%20Component%20Example
+import React, { Component } from "react";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+
+class App extends Component {
   render() {
     return (
       <View style={[styles.container, styles.horizontal]}>
-        <ActivityIndicator size="large" color="#0000ff" />
-        <ActivityIndicator size="small" color="#00ff00" />
-        <ActivityIndicator size="large" color="#0000ff" />
-        <ActivityIndicator size="small" color="#00ff00" />
+      <ActivityIndicator />
+      <ActivityIndicator size="large" />
+      <ActivityIndicator size="small" color="#0000ff" />
+      <ActivityIndicator size="large" color="#00ff00" />
       </View>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: "center"
   },
   horizontal: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     padding: 10
   }
-})
+});
+
+export default App;
 ```
 
----
+<block class="endBlock syntax" />
 
 # Reference
 
 ## Props
 
-Inherits [View Props](view.md#props).
+Inherits [View Props](view#props).
+
+---
 
 ### `animating`
 
-Whether to show the indicator (true, the default) or hide it (false).
+Whether to show the indicator (`true`) or hide it (`false`).
 
-| Type | Required |
-| ---- | -------- |
-| bool | No       |
+| Type | Required | Default |
+| ---- | -------- | ------- |
+| bool | No       | `true`  |
 
 ---
 
 ### `color`
 
-The foreground color of the spinner (default is gray on iOS and dark cyan on Android).
+The foreground color of the spinner.
 
-| Type               | Required |
-| ------------------ | -------- |
-| [color](colors.md) | No       |
+| Type            | Required | Default                                                                                                                                                                             |
+| --------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [color](colors) | No       | `null` (system accent default color)<div class="label android">Android</div><hr/><ins style="background: #999" class="color-box"></ins>`'#999999'` <div class="label ios">iOS</div> |
 
 ---
 
-### `hidesWhenStopped`
+### `hidesWhenStopped` <div class="label ios">iOS</div>
 
-Whether the indicator should hide when not animating (true by default).
+Whether the indicator should hide when not animating.
 
-| Type | Required | Platform |
-| ---- | -------- | -------- |
-| bool | No       | iOS      |
+| Type | Required | Default |
+| ---- | -------- | ------- |
+| bool | No       | `true`  |
 
 ---
 
 ### `size`
 
-Size of the indicator (default is 'small'). Passing a number to the size prop is only supported on Android.
+Size of the indicator.
 
-| Type                           | Required |
-| ------------------------------ | -------- |
-| enum('small', 'large'), number | No       |
+| Type                                                                           | Required | Default   |
+| ------------------------------------------------------------------------------ | -------- | --------- |
+| enum(`'small'`, `'large'`)<hr/>number <div class="label android">Android</div> | No       | `'small'` |

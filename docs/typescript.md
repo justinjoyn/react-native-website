@@ -1,6 +1,6 @@
 ---
 id: typescript
-title: Using TypeScript with React Native
+title: Using TypeScript
 ---
 
 [TypeScript][ts] is a language which extends JavaScript by adding type definitions, much like [Flow][flow]. While React Native is built in Flow, it supports both TypeScript _and_ Flow by default.
@@ -12,6 +12,8 @@ If you're starting a new project, there are a few different ways to get started.
 ```sh
 npx react-native init MyApp --template react-native-template-typescript
 ```
+
+> **Note** If the above command is failing, you may have old version of `react-native` or `react-native-cli` installed globally on your pc. Try uninstalling the cli and run the cli using `npx`.
 
 You can use [Expo][expo] which has two TypeScript templates:
 
@@ -32,9 +34,9 @@ ignite new MyTSProject
 1. Add TypeScript and the types for React Native and Jest to your project.
 
 ```sh
-yarn add typescript @types/jest @types/react @types/react-native @types/react-test-renderer
+yarn add --dev typescript @types/jest @types/react @types/react-native @types/react-test-renderer
 # or for npm
-npm install --save-dev @types/jest @types/react @types/react-native @types/react-test-renderer
+npm install --save-dev typescript @types/jest @types/react @types/react-native @types/react-test-renderer
 ```
 
 2. Add a TypeScript config file. Create a `tsconfig.json` in the root of your project:
@@ -67,11 +69,13 @@ npm install --save-dev @types/jest @types/react @types/react-native @types/react
 ```js
 module.exports = {
   preset: 'react-native',
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node']
 };
 ```
 
 4. Rename a JavaScript file to be `*.tsx`
+
+> You should leave the `./index.js` entrypoint file as it is otherwise you may run into an issue when it comes to bundling a production build.
 
 5. Run `yarn tsc` to type-check your new TypeScript files.
 
@@ -86,71 +90,76 @@ You can provide an interface for a React Component's [Props][props] and [State][
 ```tsx
 // components/Hello.tsx
 import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 export interface Props {
-    name: string;
-    enthusiasmLevel?: number;
+  name: string;
+  enthusiasmLevel?: number;
 }
 
 const Hello: React.FC<Props> = (props) => {
-    const [enthusiasmLevel, setEnthusiasmLevel] = React.useState(props.enthusiasmLevel);
+  const [enthusiasmLevel, setEnthusiasmLevel] = React.useState(
+    props.enthusiasmLevel
+  );
 
-    const onIncrement = () => setEnthusiasmLevel((enthusiasmLevel || 0) + 1);
-    const onDecrement = () => setEnthusiasmLevel((enthusiasmLevel || 0) - 1);
+  const onIncrement = () =>
+    setEnthusiasmLevel((enthusiasmLevel || 0) + 1);
+  const onDecrement = () =>
+    setEnthusiasmLevel((enthusiasmLevel || 0) - 1);
 
-    const getExclamationMarks = (numChars: number) => Array(numChars + 1).join('!');
-    return (
-        <View style={styles.root}>
-        <Text style={styles.greeting}>
-            Hello{' '}
-            {props.name + getExclamationMarks(enthusiasmLevel || 0)}
-        </Text>
+  const getExclamationMarks = (numChars: number) =>
+    Array(numChars + 1).join('!');
+  return (
+    <View style={styles.root}>
+      <Text style={styles.greeting}>
+        Hello{' '}
+        {props.name + getExclamationMarks(enthusiasmLevel || 0)}
+      </Text>
 
-        <View style={styles.buttons}>
-            <View style={styles.button}>
-            <Button
-                title="-"
-                onPress={onDecrement}
-                accessibilityLabel="decrement"
-                color="red"
-            />
-            </View>
-
-            <View style={styles.button}>
-            <Button
-                title="+"
-                onPress={onIncrement}
-                accessibilityLabel="increment"
-                color="blue"
-            />
-            </View>
+      <View style={styles.buttons}>
+        <View style={styles.button}>
+          <Button
+            title="-"
+            onPress={onDecrement}
+            accessibilityLabel="decrement"
+            color="red"
+          />
         </View>
+
+        <View style={styles.button}>
+          <Button
+            title="+"
+            onPress={onIncrement}
+            accessibilityLabel="increment"
+            color="blue"
+          />
         </View>
-    );
-}
+      </View>
+    </View>
+  );
+};
 
 // styles
 const styles = StyleSheet.create({
-    root: {
-        alignItems: 'center',
-        alignSelf: 'center',
-    },
-    buttons: {
-       flexDirection: 'row',
-        minHeight: 70,
-        alignItems: 'stretch',
-        alignSelf: 'center',
-        borderWidth: 5,
-    },
-    button: {
-        flex: 1,
-        paddingVertical: 0,
-    },
-    greeting: {
-        color: '#999',
-        fontWeight: 'bold',
-    },
+  root: {
+    alignItems: 'center',
+    alignSelf: 'center'
+  },
+  buttons: {
+    flexDirection: 'row',
+    minHeight: 70,
+    alignItems: 'stretch',
+    alignSelf: 'center',
+    borderWidth: 5
+  },
+  button: {
+    flex: 1,
+    paddingVertical: 0
+  },
+  greeting: {
+    color: '#999',
+    fontWeight: 'bold'
+  }
 });
 
 export default Hello;
@@ -168,14 +177,15 @@ You can explore the syntax more in the [TypeScript playground][tsplay].
 
 To use custom path aliases with TypeScript, you need to set the path aliases to work from both Babel and TypeScript. Here's how:
 
-1. Edit your `tsconfig.json` to have your [custom path mappings][path-map]. Set anything in the root of `src` to be available with no preceding path reference, and allow any test file to be accessed by using `test/File.tsx`:
+1. Edit your `tsconfig.json` to have your [custom path mappings][path-map]. Set anything in the root of `src` to be available with no preceding path reference, and allow any test file to be accessed by using `tests/File.tsx`:
 
 ```diff
     "target": "esnext",
 +     "baseUrl": ".",
 +     "paths": {
 +       "*": ["src/*"],
-+       "tests": ["tests/*"]
++       "tests": ["tests/*"],
++       "@components/*": ["src/components/*"],
 +     },
     }
 ```
@@ -199,7 +209,8 @@ npm install --save-dev babel-plugin-module-resolver
 +         root: ['./src'],
 +         extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
 +         alias: {
-+           "test/*": ["./test/"],
++           "tests": ["./tests/"],
++           "@components": "./src/components",
 +         }
 +       }
 +     ]
@@ -211,12 +222,12 @@ npm install --save-dev babel-plugin-module-resolver
 [ts]: https://www.typescriptlang.org/
 [flow]: https://flow.org
 [ts-template]: https://github.com/react-native-community/react-native-template-typescript
-[babel]: /react-native/docs/javascript-environment#javascript-syntax-transformers
+[babel]: /docs/javascript-environment#javascript-syntax-transformers
 [babel-7-caveats]: https://babeljs.io/docs/en/next/babel-plugin-transform-typescript
 [cheat]: https://github.com/typescript-cheatsheets/react-typescript-cheatsheet#reacttypescript-cheatsheets
 [ts-handbook]: http://www.typescriptlang.org/docs/home.html
-[props]: /react-native/docs/props.html
-[state]: /react-native/docs/state.html
+[props]: /docs/props.html
+[state]: /docs/state.html
 [path-map]: https://www.typescriptlang.org/docs/handbook/module-resolution.html#path-mapping
 [bpmr]: https://github.com/tleunen/babel-plugin-module-resolver
 [expo]: https://expo.io

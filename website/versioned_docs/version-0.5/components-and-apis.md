@@ -4,7 +4,7 @@ title: Components and APIs
 original_id: components-and-apis
 ---
 
-React Native provides a number of built-in components. You will find a full list of components and APIs on the sidebar to the left. If you're not sure where to get started, take a look at the following categories:
+React Native provides a number of [Core Components](intro-react-native-components). You will find a full list of components and APIs on the sidebar to the left. If you're not sure where to get started, take a look at the following categories:
 
 - [Basic Components](components-and-apis.md#basic-components)
 - [User Interface](components-and-apis.md#user-interface)
@@ -72,7 +72,7 @@ Render common user interface controls on any platform using the following compon
   <div class="component">
     <a href="./picker">
       <h3>Picker</h3>
-      <p>Renders the native picker component on iOS and Android.</p>
+      <p>Renders the native picker component on Android and iOS.</p>
     </a>
   </div>
   <div class="component">
@@ -244,7 +244,7 @@ These components may come in handy for certain applications. For an exhaustive l
   <div class="component">
     <a href="./clipboard">
       <h3>Clipboard</h3>
-      <p>Provides an interface for setting and getting content from the clipboard on both iOS and Android.</p>
+      <p>Provides an interface for setting and getting content from the clipboard on both Android and iOS.</p>
     </a>
   </div>
   <div class="component">
